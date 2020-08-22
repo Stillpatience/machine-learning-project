@@ -278,14 +278,14 @@ class DeepCFRSolver(policy.Policy):
           # Re-initialize advantage network for player and train from scratch.
           self.reinitialize_advantage_network(p)
         advantage_losses[p].append(self._learn_advantage_network(p))
-      self._iteration += 1
-      if self._iteration % 10 == 0:
+      if self._iteration + 1 == self._num_iterations or self._iteration % 10 == 0:
         self._learn_strategy_network()
         average_policy = policy.tabular_policy_from_callable(self._game,self.action_probabilities)
         expl = exploitability.exploitability(self._game, average_policy)
         self._expl.append(expl)
         conv = exploitability.nash_conv(self._game, average_policy)
         self._nash_convs.append(conv)
+      self._iteration += 1
     # Train policy network.
     policy_loss = self._learn_strategy_network()
     return self._policy_network, advantage_losses, policy_loss, self._nash_convs, self._expl

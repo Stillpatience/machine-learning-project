@@ -38,7 +38,7 @@ tf.disable_v2_behavior()
 
 FLAGS = flags.FLAGS
 #TODO: always let the number of iterations be a multiple of 10!
-flags.DEFINE_integer("num_iterations", 50, "Number of iterations")
+flags.DEFINE_integer("num_iterations", 20, "Number of iterations")
 flags.DEFINE_integer("num_traversals", 40, "Number of traversals/games")
 flags.DEFINE_string("kuhn_game_name", "kuhn_poker", "Name of the game")
 flags.DEFINE_string("leduc_game_name", "leduc_poker", "Name of the game")
@@ -127,8 +127,6 @@ def main(unused_argv):
   expl_leduc = np.array(expl_leduc)
   x_kuhn = np.arange(start=0, stop=len(nash_kuhn)*10, step=10)
   x_leduc = np.arange(start=0, stop=len(nash_leduc)*10, step=10)
-  
-    
   fig=plt.figure()
   plt.xlabel("Iteration")
   plt.ylabel("NashConv")
